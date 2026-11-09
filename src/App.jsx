@@ -41,11 +41,29 @@ export default function App() {
   const [theme, setTheme] = useState('light')
 
   function addToCart(product) {
-    setCart((items) => [...items, product])
+    setCart((items) => {
+      if (items.some((item) => item.id === product.id)) {
+        return items.map((item) =>
+          item.id === product.id ? { ...item, quantity: item.quantity + 1 } : item
+        )
+      }
+
+      return [...items, { ...product, quantity: 1 }]
+    })
   }
 
-  function removeFromCart(index) {
-    setCart((items) => items.filter((_, itemIndex) => itemIndex !== index))
+  function decreaseQuantity(id) {
+    setCart((items) =>
+      items
+        .map((item) =>
+          item.id === id ? { ...item, quantity: item.quantity - 1 } : item
+        )
+        .filter((item) => item.quantity > 0)
+    )
+  }
+
+  function removeFromCart(id) {
+    setCart((items) => items.filter((item) => item.id !== id))
   }
 
   function toggleTheme() {
@@ -53,7 +71,7 @@ export default function App() {
   }
 
   return (
-    <CartContext.Provider value={{ cart, addToCart, removeFromCart }}>
+    <CartContext.Provider value={{ cart, addToCart, decreaseQuantity, removeFromCart }}>
       <ThemeContext.Provider value={{ theme, toggleTheme }}>
         <BrowserRouter>
           <div className={`app ${theme}`}>
