@@ -1,0 +1,40 @@
+.app {
+  box-sizing: border-box;
+  min-height: 100vh;
+  padding: 12px;
+  background: white;
+  color: #222;
+}
+
+.app.dark {
+  background: #333;
+  color: white;
+}
+
+nav a {
+  margin-right: 8px;
+  color: inherit;
+}
+
+nav a.active {
+  color: #174ea6;
+  font-weight: bold;
+}
+
+.dark nav a.active {
+  color: #a8c7fa;
+}
+
+button {
+  background: #333;
+  color: white;
+}
+
+.dark button {
+  background: #eee;
+  color: #222;
+}
+
+li img {
+  vertical-align: middle;
+}
